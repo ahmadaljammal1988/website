@@ -21,7 +21,6 @@
             --notebook-bg: #f9f9f9;
             --notebook-line: 1px solid #e0e0e0;
             --success-color: #2ecc71;
-            --disabled-color: #bdc3c7;
         }
         * {
             box-sizing: border-box;
@@ -374,16 +373,6 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
         }
-        .video-link.disabled {
-            background-color: var(--disabled-color);
-            cursor: not-allowed;
-            pointer-events: none;
-            box-shadow: none;
-        }
-        .video-link.disabled:hover {
-            transform: none;
-            background-color: var(--disabled-color);
-        }
         .session-type {
             position: absolute;
             top: 1rem;
@@ -653,7 +642,7 @@
                     </div>
                     <div class="pdf-card" style="animation-delay: 0.4s; animation-name: fadeInUp;">
                         <h3>امتحان علمي ومهني شامل مقترح 2007</h3>
-                        <a href="https://drive.google.com/uc?export=download&amp;id=1_fpOHL_LPL4hzRODZhHC6KVD5wCRYAgX" class="pdf-link" target="_blank">
+                        <a href="https://drive.google.com/file/d/1_zrOa79j700OVlEG8GJSkKV28y94ezA4/view?usp=drivesdk" class="pdf-link" target="_blank">
                             <i class="fas fa-download"></i> تحميل الملف
                         </a>
                     </div>
@@ -791,28 +780,20 @@
         function pad2(n) {
             return n < 10 ? "0" + n : n;
         }
-        
         function updateTimers() {
             const now = new Date();
             document.querySelectorAll('.session').forEach(session => {
                 const timerBox = session.querySelector('.timer-box');
-                const videoLink = session.querySelector('.video-link');
                 if (!timerBox) return;
-                
                 const startStr = session.getAttribute('data-start');
                 const endStr = session.getAttribute('data-end');
                 if (!startStr || !endStr) return;
-                
                 const start = new Date(startStr);
                 const end = new Date(endStr);
 
                 // تنظيف
                 timerBox.innerHTML = '';
                 timerBox.classList.remove('timer-active', 'timer-waiting', 'timer-finished');
-                
-                if (videoLink) {
-                    videoLink.classList.remove('disabled');
-                }
 
                 if (now < start) {
                     // لم يبدأ بعد
@@ -826,11 +807,6 @@
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
                             <span class="timer-time">${pad2(h)}:${pad2(m)}:${pad2(s)}</span>
                         `;
-                        
-                        // تعطيل زر المشاهدة إذا لم يتبقى 5 دقائق أو أقل
-                        if (diff > 5 * 60 * 1000 && videoLink) {
-                            videoLink.classList.add('disabled');
-                        }
                     }
                 } else if (now >= start && now <= end) {
                     // نشط الآن
@@ -853,7 +829,6 @@
                 }
             });
         }
-        
         setInterval(updateTimers, 1000);
         document.addEventListener('DOMContentLoaded', updateTimers);
     </script>
