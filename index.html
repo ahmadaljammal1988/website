@@ -21,6 +21,7 @@
             --notebook-bg: #f9f9f9;
             --notebook-line: 1px solid #e0e0e0;
             --success-color: #2ecc71;
+            --disabled-color: #bdc3c7;
         }
         * {
             box-sizing: border-box;
@@ -228,7 +229,7 @@
         }
         .session {
             background-color: var(--white-color);
-            padding: 1.5rem 1.2rem 1.2rem 4rem;
+            padding: 1.5rem;
             border-radius: var(--border-radius);
             border-left: 4px solid var(--secondary-color);
             position: relative;
@@ -274,22 +275,26 @@
             margin-left: 0.5rem;
             color: var(--secondary-color);
         }
-        /* تايمر صغير رمادي دائري بالزاوية */
+        /* تايمر بجانب زر المشاهدة */
+        .session .session-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            gap: 10px;
+        }
         .session .timer-box {
             display: flex;
             align-items: center;
             justify-content: center;
-            position: absolute;
-            left: 10px;
-            top: 10px;
-            min-width: 52px;
-            min-height: 28px;
+            min-width: 60px;
+            min-height: 36px;
             background: #f1f1f1;
             color: #666;
-            border-radius: 50px;
+            border-radius: 6px;
             padding: 0 10px;
             font-family: 'Tajawal', Arial, sans-serif;
-            font-size: 0.93em;
+            font-size: 0.85em;
             font-weight: bold;
             box-shadow: 0 1px 4px rgba(160,160,160,0.10);
             border: 1.2px solid #e0e0e0;
@@ -314,13 +319,13 @@
             border-color: #ededed;
         }
         .session .timer-box .timer-icon {
-            font-size: 1em;
-            margin-left: 2px;
+            font-size: 0.9em;
+            margin-left: 4px;
         }
         .session .timer-box .active-dot {
             display: inline-block;
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             margin-left: 3px;
             border-radius: 50%;
             background-color: var(--success-color);
@@ -334,20 +339,17 @@
             100% { opacity: 1; }
         }
         .session .timer-box .timer-label {
-            font-size: 0.93em;
+            font-size: 0.85em;
             font-weight: normal;
             margin: 0 2px;
         }
         .session .timer-box .timer-time {
             font-family: monospace, 'Tajawal', Arial, sans-serif;
-            font-size: 1.02em;
+            font-size: 0.95em;
             letter-spacing: 1px;
             direction: ltr;
             unicode-bidi: embed;
         }
-        /* تأكد من أن .session position:relative */
-        .session { position: relative; }
-        /* باقي التنسيقات ... (لم تتغير) */
         .video-link {
             display: inline-flex;
             align-items: center;
@@ -359,7 +361,6 @@
             text-decoration: none;
             font-size: 1rem;
             transition: var(--transition);
-            margin-top: 0.5rem;
             position: relative;
             z-index: 1;
             border: none;
@@ -367,11 +368,22 @@
             font-weight: 600;
             gap: 0.5rem;
             box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+            flex-grow: 1;
         }
         .video-link:hover {
             background-color: var(--primary-color);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        .video-link.disabled {
+            background-color: var(--disabled-color);
+            cursor: not-allowed;
+            pointer-events: none;
+            box-shadow: none;
+        }
+        .video-link.disabled:hover {
+            transform: none;
+            background-color: var(--disabled-color);
         }
         .session-type {
             position: absolute;
@@ -445,7 +457,7 @@
             .tab-btn { min-width: 120px; padding: 0.7rem 1rem; font-size: 1rem; }
             .day-schedule { padding: 1.5rem 1rem 1.2rem; }
             .day-schedule::before { left: 50px; }
-            .session { padding: 1.3rem 1rem 1rem 3.5rem; }
+            .session { padding: 1.3rem 1rem 1rem; }
             .scroll-top { width: 3rem; height: 3rem; bottom: 1.5rem; left: 1.5rem; font-size: 1.3rem; }
             .youtube-section { padding: 1.5rem 1rem; }
             .youtube-link { padding: 0.8rem 1rem; font-size: 1rem; }
@@ -461,9 +473,16 @@
             .sessions-container, .pdf-grid { grid-template-columns: 1fr; }
             .day-schedule h2 { font-size: 1.3rem; }
             .session .topic { font-size: 1.1rem; }
+            .session .session-footer {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .session .timer-box {
+                width: 100%;
+                margin-top: 0.5rem;
+            }
             .youtube-section iframe { height: 200px; }
             .scroll-top { width: 2.8rem; height: 2.8rem; bottom: 1rem; left: 1rem; }
-            .session .timer-box {font-size:0.89em;min-width:44px;}
         }
     </style>
 </head>
@@ -492,18 +511,22 @@
                     <div class="session" data-start="2025-06-29T17:00:00" data-end="2025-06-29T19:00:00" style="animation-delay: 0s; animation-name: fadeInUp;">
                         <div class="topic">أثر البيئة + الوراثة فوق جينية + مقدمة الطفرات</div>
                         <div class="time"><i class="fas fa-clock"></i> 5:00 مساءً - 7:00 مساءً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://www.youtube.com/watch?v=bNyUyrR0PHo" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://www.youtube.com/watch?v=bNyUyrR0PHo" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-06-29T20:00:00" data-end="2025-06-30T00:00:00" style="animation-delay: 0.1s; animation-name: fadeInUp;">
                         <div class="topic">الطفرات + التكنولوجيا</div>
                         <div class="time"><i class="fas fa-clock"></i> 8:00 مساءً - 12:00 منتصف الليل</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/الطفرات_والتكنولوجيا" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/الطفرات_والتكنولوجيا" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -513,36 +536,46 @@
                     <div class="session" data-start="2025-06-30T09:00:00" data-end="2025-06-30T12:00:00" style="animation-delay: 0.2s; animation-name: fadeInUp;">
                         <div class="topic">التنفس الخلوي والتخمر</div>
                         <div class="time"><i class="fas fa-clock"></i> 9:00 صباحاً - 12:00 ظهراً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/التنفس_الخلوي" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/التنفس_الخلوي" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-06-30T12:00:00" data-end="2025-06-30T14:00:00" style="animation-delay: 0.3s; animation-name: fadeInUp;">
                         <div class="topic">دراسة</div>
                         <div class="time"><i class="fas fa-clock"></i> 12:00 ظهراً - 2:00 ظهراً</div>
-                        <span class="timer-box"></span>
+                        <div class="session-footer">
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-06-30T14:00:00" data-end="2025-06-30T16:00:00" style="animation-delay: 0.4s; animation-name: fadeInUp;">
                         <div class="topic">البناء الضوئي</div>
                         <div class="time"><i class="fas fa-clock"></i> 2:00 ظهراً - 4:00 عصراً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/البناء_الضوئي" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/البناء_الضوئي" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-06-30T16:00:00" data-end="2025-06-30T18:00:00" style="animation-delay: 0.5s; animation-name: fadeInUp;">
                         <div class="topic">دراسة</div>
                         <div class="time"><i class="fas fa-clock"></i> 4:00 عصراً - 6:00 مساءً</div>
-                        <span class="timer-box"></span>
+                        <div class="session-footer">
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-06-30T18:00:00" data-end="2025-06-30T20:00:00" style="animation-delay: 0.6s; animation-name: fadeInUp;">
                         <div class="topic">تضاعف DNA وتصنيع بروتين</div>
                         <div class="time"><i class="fas fa-clock"></i> 6:00 مساءً - 8:00 مساءً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/تضاعف_DNA" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/تضاعف_DNA" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -552,28 +585,36 @@
                     <div class="session" data-start="2025-07-01T07:00:00" data-end="2025-07-01T09:00:00" style="animation-delay: 0.7s; animation-name: fadeInUp;">
                         <div class="topic">دراسة</div>
                         <div class="time"><i class="fas fa-clock"></i> 7:00 صباحاً - 9:00 صباحاً</div>
-                        <span class="timer-box"></span>
+                        <div class="session-footer">
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-01T09:00:00" data-end="2025-07-01T11:00:00" style="animation-delay: 0.8s; animation-name: fadeInUp;">
                         <div class="topic">الجينات المرتبطة + خريطة الجينات</div>
                         <div class="time"><i class="fas fa-clock"></i> 9:00 صباحاً - 11:00 صباحاً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/الجينات_المرتبطة" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/الجينات_المرتبطة" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-01T11:00:00" data-end="2025-07-01T17:00:00" style="animation-delay: 0.9s; animation-name: fadeInUp;">
                         <div class="topic">دراسة</div>
                         <div class="time"><i class="fas fa-clock"></i> 11:00 صباحاً - 5:00 مساءً</div>
-                        <span class="timer-box"></span>
+                        <div class="session-footer">
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-01T17:00:00" data-end="2025-07-01T22:00:00" style="animation-delay: 1s; animation-name: fadeInUp;">
                         <div class="topic">الوراثة المندلية + الوراثة ما بعد مندل</div>
                         <div class="time"><i class="fas fa-clock"></i> 5:00 مساءً - 10:00 مساءً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/الوراثة_المندلية" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/الوراثة_المندلية" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -584,34 +625,42 @@
                         <div class="topic">المركبات العضوية الحيوية + الإنزيمات و ATP
 </div>
                         <div class="time"><i class="fas fa-clock"></i>7:00 صباحا -11 صباحا</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/دورة_الخلية" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/دورة_الخلية" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-02T13:00:00" data-end="2025-07-02T15:00:00" style="animation-delay: 1.2s; animation-name: fadeInUp;">
                         <div class="topic">دورة الخلية + الانقسامات الخلوية</div>
                         <div class="time"><i class="fas fa-clock"></i> 1:00 مساء - 3:00 مساء</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/المركبات_العضوية" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/المركبات_العضوية" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-02T17:00:00" data-end="2025-07-02T20:00:00" style="animation-delay: 1.3s; animation-name: fadeInUp;">
                         <div class="topic">وحدة البيئة</div>
                         <div class="time"><i class="fas fa-clock"></i> 5:00 مساءً - 8:00 مساءً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/وحدة_البيئة" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/وحدة_البيئة" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                     <div class="session" data-start="2025-07-02T20:00:00" data-end="2025-07-02T22:00:00" style="animation-delay: 1.4s; animation-name: fadeInUp;">
                         <div class="topic">حل وزارة + الفية + كتاب الأنشطة من اليوتيوب</div>
                         <div class="time"><i class="fas fa-clock"></i> 8:00 مساءً - 10:00 مساءً</div>
-                        <span class="timer-box"></span>
-                        <a href="https://youtube.com/live/حل_الوزارة" class="video-link" target="_blank">
-                            <i class="fas fa-play"></i> مشاهدة البث
-                        </a>
+                        <div class="session-footer">
+                            <a href="https://youtube.com/live/حل_الوزارة" class="video-link" target="_blank">
+                                <i class="fas fa-play"></i> مشاهدة البث
+                            </a>
+                            <span class="timer-box"></span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -642,7 +691,7 @@
                     </div>
                     <div class="pdf-card" style="animation-delay: 0.4s; animation-name: fadeInUp;">
                         <h3>امتحان علمي ومهني شامل مقترح 2007</h3>
-                        <a href="https://drive.google.com/file/d/1_zrOa79j700OVlEG8GJSkKV28y94ezA4/view?usp=drivesdk" class="pdf-link" target="_blank">
+                        <a href="https://drive.google.com/uc?export=download&amp;id=1_fpOHL_LPL4hzRODZhHC6KVD5wCRYAgX" class="pdf-link" target="_blank">
                             <i class="fas fa-download"></i> تحميل الملف
                         </a>
                     </div>
@@ -776,24 +825,32 @@
             });
         });
 
-        // ----------- تايمر العد التنازلي صغير وجميل بالزاوية مع النقطة الخضراء للجلسات -----------------
+        // ----------- تايمر العد التنازلي مع زر المشاهدة -----------------
         function pad2(n) {
             return n < 10 ? "0" + n : n;
         }
+        
         function updateTimers() {
             const now = new Date();
             document.querySelectorAll('.session').forEach(session => {
                 const timerBox = session.querySelector('.timer-box');
+                const videoLink = session.querySelector('.video-link');
                 if (!timerBox) return;
+                
                 const startStr = session.getAttribute('data-start');
                 const endStr = session.getAttribute('data-end');
                 if (!startStr || !endStr) return;
+                
                 const start = new Date(startStr);
                 const end = new Date(endStr);
 
                 // تنظيف
                 timerBox.innerHTML = '';
                 timerBox.classList.remove('timer-active', 'timer-waiting', 'timer-finished');
+                
+                if (videoLink) {
+                    videoLink.classList.remove('disabled');
+                }
 
                 if (now < start) {
                     // لم يبدأ بعد
@@ -807,6 +864,11 @@
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
                             <span class="timer-time">${pad2(h)}:${pad2(m)}:${pad2(s)}</span>
                         `;
+                        
+                        // تعطيل زر المشاهدة إذا لم يتبقى 5 دقائق أو أقل
+                        if (diff > 5 * 60 * 1000 && videoLink) {
+                            videoLink.classList.add('disabled');
+                        }
                     }
                 } else if (now >= start && now <= end) {
                     // نشط الآن
@@ -829,6 +891,7 @@
                 }
             });
         }
+        
         setInterval(updateTimers, 1000);
         document.addEventListener('DOMContentLoaded', updateTimers);
     </script>
