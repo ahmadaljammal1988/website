@@ -173,6 +173,63 @@
         .tab-content.active {
             display: block;
         }
+        .important-videos-section {
+            background: var(--white-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2.5rem;
+            padding: 2rem 1.5rem 1.5rem;
+            border-top: 4px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        .important-videos-section h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+            padding: 0 1rem;
+        }
+        .important-videos-section h2::before, .important-videos-section h2::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+        }
+        .important-videos-section h2::before { right: 100%; }
+        .important-videos-section h2::after { left: 100%; }
+        .important-video-card {
+            background: #faf9f6;
+            border-radius: var(--border-radius);
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07);
+            margin: 1rem auto 0 auto;
+            max-width: 600px;
+            padding: 1.2rem;
+            position: relative;
+        }
+        .important-video-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.15rem;
+        }
+        .important-video-frame {
+            width: 100%;
+            height: 315px;
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        @media (max-width: 768px) {
+            .important-video-frame { height: 220px; }
+        }
+        @media (max-width: 576px) {
+            .important-video-frame { height: 180px; }
+        }
         .day-schedule {
             background: var(--white-color);
             border-radius: var(--border-radius);
@@ -275,7 +332,6 @@
             margin-left: 0.5rem;
             color: var(--secondary-color);
         }
-        /* تايمر بجانب زر المشاهدة */
         .session .session-footer {
             display: flex;
             align-items: center;
@@ -407,7 +463,6 @@
             background-color: var(--microbiology-color);
             color: var(--white-color);
         }
-        /* باقي التنسيقات الأصلية ... */
         .pdf-section {background-color: var(--white-color);border-radius: var(--border-radius);box-shadow: var(--box-shadow);padding: 2rem 1.5rem;border-top: 4px solid var(--success-color);position: relative;overflow: hidden;}
         .pdf-section h2 {color: var(--primary-color);margin-bottom: 1.5rem;text-align: center;font-size: 1.4rem;position: relative;display: inline-block;left: 50%;transform: translateX(-50%);padding: 0 1rem;}
         .pdf-section h2::before, .pdf-section h2::after {content: "";position: absolute;top: 50%;width: 50px;height: 2px;background: linear-gradient(to right, var(--biology-color), var(--microbiology-color));}
@@ -503,6 +558,7 @@
         <div class="tabs">
             <button class="tab-btn active" data-tab="schedule">الجدول الدراسي <i class="fas fa-calendar-alt"></i></button>
             <button class="tab-btn" data-tab="files">ملفات البث <i class="fas fa-file-pdf"></i></button>
+            <button class="tab-btn" data-tab="important-videos">فيديوهات مهمة <i class="fas fa-star"></i></button>
         </div>
         <div class="tab-content active" id="schedule">
             <section class="day-schedule">
@@ -517,7 +573,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">16:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -530,7 +586,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">19:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -548,7 +604,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">32:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -566,7 +622,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">37:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -584,7 +640,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">41:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -607,7 +663,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">56:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -625,7 +681,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">64:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -644,7 +700,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">78:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -657,7 +713,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">84:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -670,7 +726,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">88:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -683,7 +739,7 @@
                             </a>
                             <span class="timer-box timer-waiting">
                             <span class="timer-icon"><i class="fa-regular fa-hourglass-half"></i></span>
-                            <span class="timer-time">91:05:19</span>
+                            <span class="timer-time">--:--:--</span>
                         </span>
                         </div>
                     </div>
@@ -716,7 +772,7 @@
                     </div>
                     <div class="pdf-card" style="animation-delay: 0.4s; animation-name: fadeInUp; border-left-color: var(--primary-color);">
                         <h3>امتحان علمي ومهني شامل مقترح 2007</h3>
-                        <a href="https://drive.google.com/file/d/1aKTnhJBgev5l_8n3otzpFy8UANGvF3bh/view?usp=drivesdk" class="pdf-link" target="_blank">
+                        <a href="https://drive.google.com/uc?export=download&amp;id=1_fpOHL_LPL4hzRODZhHC6KVD5wCRYAgX" class="pdf-link" target="_blank">
                             <i class="fas fa-download"></i> تحميل الملف
                         </a>
                     </div>
@@ -747,6 +803,15 @@
                 </div>
             </section>
         </div>
+        <div class="tab-content" id="important-videos">
+            <section class="important-videos-section">
+                <h2><i class="fas fa-star"></i> فيديوهات مهمة</h2>
+                <div class="important-video-card">
+                    <div class="important-video-title">2007 - امتحان احياء قدرات استنتاج فصل اول</div>
+                    <iframe class="important-video-frame" src="https://www.youtube.com/embed/hlXv3YRCzUI?si=vTT5P0dPScGhyXjU" allowfullscreen="" title="2007 - امتحان احياء قدرات استنتاج فصل اول"></iframe>
+                </div>
+            </section>
+        </div>
     </div>
     <footer>
         <p>جميع الحقوق محفوظة © <span id="year">2025</span> - قناة الأستاذ أحمد الجمال</p>
@@ -762,6 +827,13 @@
         <i class="fas fa-arrow-up"></i>
     </button>
     <script>
+        // طلب الإذن للإشعارات عند الدخول
+        if ('Notification' in window) {
+            if (Notification.permission === "default") {
+                Notification.requestPermission();
+            }
+        }
+
         // تحديث سنة حقوق النشر
         document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -850,7 +922,9 @@
             });
         });
 
-        // ----------- تايمر العد التنازلي مع زر المشاهدة -----------------
+        // ----------- تايمر العد التنازلي مع زر المشاهدة + الإشعار عند بدء البث -----------------
+        let notifiedSessions = JSON.parse(localStorage.getItem('notifiedSessions') || '[]');
+
         function pad2(n) {
             return n < 10 ? "0" + n : n;
         }
@@ -907,6 +981,19 @@
                         <span class="timer-icon"><i class="fa-solid fa-bolt"></i></span>
                         <span class="timer-time">${pad2(h)}:${pad2(m)}:${pad2(s)}</span>
                     `;
+
+                    // إشعار عند بداية البث
+                    const sessionId = session.getAttribute('data-start') + session.querySelector('.topic').textContent;
+                    if ('Notification' in window && Notification.permission === "granted" && !notifiedSessions.includes(sessionId)) {
+                        new Notification("🚨 بدأ البث الآن!", {
+                            body: "بدأ البث: " + session.querySelector('.topic').textContent,
+                            icon: "https://yt3.googleusercontent.com/hs6-dmB5gUUeT1H9MjeNWQwI_gUr6CYbEV6VWXiFHdSuuedhauNTMr9ZMsNlTUfmHtws8iQi=s160-c-k-c0x00ffffff-no-rj",
+                            dir: "rtl"
+                        });
+                        notifiedSessions.push(sessionId);
+                        localStorage.setItem('notifiedSessions', JSON.stringify(notifiedSessions));
+                    }
+
                 } else {
                     // انتهت الجلسة
                     timerBox.classList.add('timer-finished');
