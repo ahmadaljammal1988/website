@@ -1152,9 +1152,9 @@
             <section class="day-schedule">
                 <h2><i class="fas fa-calendar-day"></i> فجر الامتحان 7/3</h2>
                 <div class="sessions-container">
-                    <div class="session" data-start="2025-07-03T04:00:00" data-end="2025-07-03T06:00:00">
+                    <div class="session" data-start="2025-07-03T06:00:00">
                         <div class="topic">البيئة مراجعه سريعه</div>
-                        <div class="time"><i class="fas fa-clock"></i> 4:00 فجراً - 6:00 فجراً</div>
+                        <div class="time"><i class="fas fa-clock"></i> 6:00 صباحاً</div>
                         <div class="session-footer">
                             <a href="https://youtube.com/live/البيئة_مراجعه_سريعه" class="video-link" target="_blank">
                                 <i class="fas fa-play"></i> مشاهدة البث
@@ -1358,9 +1358,9 @@
                 if (!timerBox) return;
                 const startStr = session.getAttribute('data-start');
                 const endStr = session.getAttribute('data-end');
-                if (!startStr || !endStr) return;
+                if (!startStr) return;
                 const start = new Date(startStr);
-                const end = new Date(endStr);
+                const end = endStr ? new Date(endStr) : null;
                 timerBox.innerHTML = '';
                 timerBox.classList.remove('timer-active', 'timer-waiting', 'timer-finished');
                 if (videoLink) { videoLink.classList.remove('disabled'); }
@@ -1379,16 +1379,12 @@
                             videoLink.classList.add('disabled');
                         }
                     }
-                } else if (now >= start && now <= end) {
-                    const diff = end - now;
-                    const h = Math.floor(diff / (1000 * 60 * 60));
-                    const m = Math.floor((diff / (1000 * 60)) % 60);
-                    const s = Math.floor((diff / 1000) % 60);
+                } else if (now >= start && (!end || now <= end)) {
                     timerBox.classList.add('timer-active');
                     timerBox.innerHTML = `
                         <span class="active-dot"></span>
                         <span class="timer-icon"><i class="fa-solid fa-bolt"></i></span>
-                        <span class="timer-time">${pad2(h)}:${pad2(m)}:${pad2(s)}</span>
+                        <span class="timer-time">مباشر الآن</span>
                     `;
                     const sessionId = session.getAttribute('data-start') + session.querySelector('.topic').textContent;
                     if ('Notification' in window && Notification.permission === "granted" && !notifiedSessions.includes(sessionId)) {
