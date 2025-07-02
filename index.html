@@ -57,20 +57,73 @@
             width: 110px;
             height: 340px;
             opacity: 0.13;
-            animation: dna-float 23s linear infinite;
             will-change: transform, opacity;
+            /* Animation set below */
         }
-        .dna-molecule:nth-child(1) { left: 8vw; top: 12vh; animation-duration: 28s; }
-        .dna-molecule:nth-child(2) { left: 60vw; top: 22vh; animation-delay: 7s; animation-duration: 22s;}
-        .dna-molecule:nth-child(3) { left: 26vw; top: 70vh; animation-delay: 14s; animation-duration: 30s;}
-        .dna-molecule:nth-child(4) { left: 80vw; top: 55vh; animation-delay: 2s; animation-duration: 35s;}
-        .dna-molecule:nth-child(5) { left: 44vw; top: 36vh; animation-delay: 10s; animation-duration: 27s;}
-        @keyframes dna-float {
-            0% { transform: translateY(0) scale(1) rotate(0deg);}
-            40% { opacity: 0.20; }
-            50% { opacity: 0.17;}
-            70% { opacity: 0.11;}
-            100% { transform: translateY(-70vh) scale(1.04) rotate(14deg);}
+        /* DNA movement: super smooth, floating, wavy like water */
+        .dna-molecule:nth-child(1) {
+            left: 8vw; top: 12vh;
+            animation: dna-float1 32s cubic-bezier(.43,.33,.47,.97) infinite alternate;
+        }
+        .dna-molecule:nth-child(2) {
+            left: 60vw; top: 24vh;
+            animation: dna-float2 36s cubic-bezier(.38,.47,.35,1.1) infinite alternate;
+            animation-delay: 7s;
+        }
+        .dna-molecule:nth-child(3) {
+            left: 26vw; top: 70vh;
+            animation: dna-float3 40s cubic-bezier(.43,.33,.47,.97) infinite alternate;
+            animation-delay: 14s;
+        }
+        .dna-molecule:nth-child(4) {
+            left: 80vw; top: 55vh;
+            animation: dna-float4 33s cubic-bezier(.38,.47,.35,1.1) infinite alternate;
+            animation-delay: 2s;
+        }
+        .dna-molecule:nth-child(5) {
+            left: 44vw; top: 36vh;
+            animation: dna-float5 36s cubic-bezier(.43,.33,.47,.97) infinite alternate;
+            animation-delay: 10s;
+        }
+        @keyframes dna-float1 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1);}
+            20% { transform: translateY(-10vh) translateX(10vw) rotate(6deg) scale(1.04);}
+            40% { transform: translateY(-20vh) translateX(5vw) rotate(0deg) scale(1.08);}
+            60% { transform: translateY(-10vh) translateX(-5vw) rotate(-2deg) scale(1.04);}
+            80% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+            100% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+        }
+        @keyframes dna-float2 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1);}
+            20% { transform: translateY(-9vh) translateX(-7vw) rotate(-4deg) scale(1.03);}
+            40% { transform: translateY(-19vh) translateX(-2vw) rotate(1deg) scale(1.07);}
+            60% { transform: translateY(-8vh) translateX(3vw) rotate(3deg) scale(1.01);}
+            80% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+            100% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+        }
+        @keyframes dna-float3 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1);}
+            20% { transform: translateY(-8vh) translateX(5vw) rotate(2deg) scale(1.03);}
+            40% { transform: translateY(-16vh) translateX(8vw) rotate(0deg) scale(1.07);}
+            60% { transform: translateY(-4vh) translateX(3vw) rotate(-3deg) scale(1.02);}
+            80% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+            100% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+        }
+        @keyframes dna-float4 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1);}
+            20% { transform: translateY(-13vh) translateX(-8vw) rotate(5deg) scale(1.02);}
+            40% { transform: translateY(-17vh) translateX(-3vw) rotate(0deg) scale(1.06);}
+            60% { transform: translateY(-7vh) translateX(4vw) rotate(-2deg) scale(1.03);}
+            80% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+            100% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+        }
+        @keyframes dna-float5 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1);}
+            20% { transform: translateY(-12vh) translateX(7vw) rotate(-4deg) scale(1.05);}
+            40% { transform: translateY(-16vh) translateX(2vw) rotate(3deg) scale(1.08);}
+            60% { transform: translateY(-9vh) translateX(-3vw) rotate(-2deg) scale(1.04);}
+            80% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
+            100% { transform: translateY(0vh) translateX(0vw) rotate(0deg) scale(1);}
         }
         /* Biology icons floating */
         .bio-float {
@@ -730,7 +783,6 @@
             .study-banner { flex-direction: column; padding: 1.2rem; font-size: 1.1rem; }
             .tab-btn { min-width: 120px; padding: 0.7rem 1rem; font-size: 1rem; }
             .day-schedule { padding: 1.5rem 1rem 1.2rem; }
-            .day-schedule::before { left: 50px; }
             .session { padding: 1.3rem 1rem 1rem; }
             .scroll-top { width: 3rem; height: 3rem; bottom: 1.5rem; left: 1.5rem; font-size: 1.3rem; }
             .youtube-section { padding: 1.5rem 1rem; }
@@ -901,8 +953,8 @@
                 </g>
             </g>
         </svg>
-        <img src="https://cdn.pixabay.com/photo/2017/02/17/12/37/leaf-2070087_1280.png" class="bio-float" alt="leaf">
-        <img src="https://cdn.pixabay.com/photo/2020/04/17/00/56/bacteria-5053825_1280.png" class="bio-float2" alt="bacteria">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/SARS-CoV-2_without_background.png" class="bio-float" alt="leaf">
+        <img src="https://www.pngplay.com/wp-content/uploads/6/Bacteria-Transparent-Free-PNG.png" class="bio-float2" alt="bacteria">
     </div>
     <header>
         <div class="header-decor"></div>
@@ -1071,7 +1123,7 @@
                     </div>
                     <div class="session" data-start="2025-07-02T11:30:00" data-end="2025-07-02T13:30:00">
                         <div class="topic">المركبات العضوية والانزيمات</div>
-                        <div class="time"><i class="fas fa-clock"></i> 11:30 صباحاً - 3:00 ظهراً</div>
+                        <div class="time"><i class="fas fa-clock"></i> 11:30 صباحاً - 1:30 ظهراً</div>
                         <div class="session-footer">
                             <a href="https://www.youtube.com/watch?v=K3maS3FdKhE" class="video-link" target="_blank">
                                 <i class="fas fa-play"></i> مشاهدة البث
@@ -1081,15 +1133,17 @@
                             </span>
                         </div>
                     </div>
-                    <div class="session" data-start="2025-07-02T15:30:00" data-end="2025-07-02T17:30:00">
+                    <div class="session" data-start="2025-07-02T19:30:00" data-end="2025-07-02T22:30:00">
                         <div class="topic">دورة الخلية والانقسام</div>
                         <div class="time"><i class="fas fa-clock"></i> 7:30 مساءً - 10:30 مساءً</div>
                         <div class="session-footer">
-                            <a href="https://www.youtube.com/watch?v=6wwmb8A5gbs" class="video-link" target="_blank">
+                            <a href="https://youtube.com/live/دورة_الخلية_والانقسام" class="video-link" target="_blank">
                                 <i class="fas fa-play"></i> مشاهدة البث
                             </a>
-                            <span class="timer-box timer-finished">
-                                <span class="timer-icon"><i class="fa-regular fa-circle-check"></i></span>
+                            <span class="timer-box">
+                                <span class="active-dot"></span>
+                                <span class="timer-icon"><i class="fa-solid fa-bolt"></i></span>
+                                <span class="timer-time"></span>
                             </span>
                         </div>
                     </div>
